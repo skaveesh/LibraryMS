@@ -1,11 +1,27 @@
+<%-- 
+    Document   : AdminPage
+    Created on : Dec 3, 2016, 2:42:39 PM
+    Author     : Samintha
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (session == null || (session.getAttribute("username") == null || session.getAttribute("username").equals(""))) {
+        String s = "Please Login First! Goto <a href=\"login.jsp\" >Login</a>";
+        request.setAttribute("passedMessage", s);
+        RequestDispatcher rd = request.getRequestDispatcher("/TemplateSite.jsp");
+        rd.forward(request, response);
+    } else if (session != null && !session.getAttribute("username").equals("admin")) {
+        String s = "You Don't Belong Here!";
+        request.setAttribute("passedMessage", s);
+        RequestDispatcher rd = request.getRequestDispatcher("/TemplateSite.jsp");
+        rd.forward(request, response);
+    } else {
+%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>LibraryMS</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,12 +45,12 @@ and open the template in the editor.
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
-                    <li><a class="grey-text text-darken-3" href="login.html">Login</a></li>
+                    <li><a class="grey-text text-darken-3" href="LoginHandle">Logout</a></li>
                     <li><a class="grey-text text-darken-3" href="requestAccount.html">Request an Account</a></li>
                 </ul>
                 <ul class="side-nav amber darken-1" id="mobile-demo">
                     <li><a href="index.html">LibraryMS</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="LoginHandle">Logout</a></li>
                     <li><a href="requestAccount.html">Request an Account</a></li>
                 </ul>
             </div>
@@ -42,35 +58,7 @@ and open the template in the editor.
 
         <div class="container">
 
-            <div class="row">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-
-                <div class="col l4 offset-l4 m6 offset-m3 s12 amber darken-1" style="padding: 30px 30px 30px 30px;border-radius: 5px;box-shadow: 1px 1px 20px black"> 
-                    <form action="LoginHandle" method="POST">
-                        <div class="row">
-                            <div class="input-field">
-                                <input id="user_name" type="text" class="validate white-text" name="username">
-                                <label for="user_name" class="white-text">Userame</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field">
-                                <input id="user_password" type="password" class="validate" name="password">
-                                <label for="duser_password" class="white-text">Password</label>
-                            </div>
-                        </div>
-                        <div class="row center">
-                            <button  class="waves-effect waves-light white grey-text text-darken-1 btn center-align" type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <h4 class="white-text">Welcome ${sessionScope.username}</h4>
 
 
         </div>
@@ -88,34 +76,17 @@ and open the template in the editor.
         </script>
 
         <style>
-             /* label focus color */ 
+            /* label focus color */
             .input-field input[type=text]:focus + label {
                 color: #FFF;
             }
-             
             /* label underline focus color */
             .input-field input[type=text]:focus {
                 border-bottom: 1px solid #FFF;
                 box-shadow: 0 1px 0 0 #FFF;
             }
-
-            /* label focus color */
-            .input-field input[type=password]:focus + label {
-                color: #FFF;
-            }
-            /* label underline focus color */
-            .input-field input[type=password]:focus {
-                border-bottom: 1px solid #FFF;
-                box-shadow: 0 1px 0 0 #FFF;
-            }
-
-
-            password:focus {
-                border-bottom: 1px solid orange;
-                -webkit-box-shadow: 0 1px 0 0 orange;
-                -moz-box-shadow: 0 1px 0 0 orange;
-                box-shadow: 0 1px 0 0 orange;
-            }
         </style>
     </body>
 </html>
+<%    }
+%>

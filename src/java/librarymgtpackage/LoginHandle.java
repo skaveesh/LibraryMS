@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -59,38 +60,47 @@ public class LoginHandle extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        session.removeAttribute("username");
+        response.sendRedirect("login.jsp");
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        
+
         MD5Converter md5 = new MD5Converter();
-        
-        
+
         connectSQLServer dbcon = new connectSQLServer();
-        
+
+        //creating a session
+        HttpSession session = request.getSession();
+
         dbcon.createConnection();
-        
-        if(dbcon.loginUser(request.getParameter("username"), md5.md5(request.getParameter("password")))){
-            System.out.println("logged in");
-        }else{
+
+        if (dbcon.loginUser(request.getParameter("username"), md5.md5(request.getParameter("password")))) {
+
+            String uname = request.getParameter("username");
+            if (uname.equals("admin")) {
+                System.out.println("admin logged in");
+                session.setAttribute("username", uname);
+                response.sendRedirect("AdminDashboard.jsp");
+            } else {
+                System.out.println("user logged in");
+                session.setAttribute("username", uname);
+                response.sendRedirect("UserDashboard.jsp");
+            }
+        } else {
             String s = "Login Failed Please Try Again!\n Invalid Username or Password. <a href=\"login.html\" >Go Back</a>";
             request.setAttribute("passedMessage", s);
             RequestDispatcher rd = request.getRequestDispatcher("/TemplateSite.jsp");
             rd.forward(request, response);
         }
-        
+
         dbcon.closeConnection();
     }
 

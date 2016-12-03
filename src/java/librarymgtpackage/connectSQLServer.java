@@ -56,7 +56,7 @@ public class connectSQLServer {
         String usernameFromDB = null;
         String userpassFromDB = null;
         try {
-            String SQL = "SELECT username,password FROM dbo.Users";
+            String SQL = "SELECT username,password FROM dbo.Users WHERE username = '"+enteredUsername+"'";
             ResultSet rs = null;
             rs = stmt.executeQuery(SQL);
 

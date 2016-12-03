@@ -1,14 +1,22 @@
 <%-- 
-    Document   : TemplateSite
-    Created on : Nov 11, 2016, 7:56:27 PM
+    Document   : login
+    Created on : Dec 3, 2016, 3:21:44 PM
     Author     : Samintha
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    //check if session is available
+    if (session == null || (session.getAttribute("username") == null || session.getAttribute("username").equals(""))) {
+%>
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>LibraryMS</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,12 +61,26 @@
                 <br>
                 <br>
                 <br>
-                <br>
-                <br>
-                <br>
 
-                <div class="col s12 center"><span class="flow-text amber darken-1" style="padding: 3px 3px 3px 3px;border-radius: 2px;box-shadow: 1px 1px 5px black; border-bottom: 5px; border-top: 5px" ><%String msg = (String) request.getAttribute("passedMessage");
-                out.print(msg);%></span></div>
+                <div class="col l4 offset-l4 m6 offset-m3 s12 amber darken-1" style="padding: 30px 30px 30px 30px;border-radius: 5px;box-shadow: 1px 1px 20px black"> 
+                    <form action="LoginHandle" method="POST">
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="user_name" type="text" class="validate white-text" name="username">
+                                <label for="user_name" class="white-text">Userame</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="user_password" type="password" class="validate" name="password">
+                                <label for="duser_password" class="white-text">Password</label>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <button  class="waves-effect waves-light white grey-text text-darken-1 btn center-align" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
 
@@ -77,15 +99,43 @@
         </script>
 
         <style>
-            /* label focus color */
+            /* label focus color */ 
             .input-field input[type=text]:focus + label {
                 color: #FFF;
             }
+
             /* label underline focus color */
             .input-field input[type=text]:focus {
                 border-bottom: 1px solid #FFF;
                 box-shadow: 0 1px 0 0 #FFF;
             }
+
+            /* label focus color */
+            .input-field input[type=password]:focus + label {
+                color: #FFF;
+            }
+            /* label underline focus color */
+            .input-field input[type=password]:focus {
+                border-bottom: 1px solid #FFF;
+                box-shadow: 0 1px 0 0 #FFF;
+            }
+
+
+            password:focus {
+                border-bottom: 1px solid orange;
+                -webkit-box-shadow: 0 1px 0 0 orange;
+                -moz-box-shadow: 0 1px 0 0 orange;
+                box-shadow: 0 1px 0 0 orange;
+            }
         </style>
     </body>
 </html>
+<%} else if (session != null || (session.getAttribute("username") != null || !session.getAttribute("username").equals(""))) {
+        //if session is admin goto admin page else goto user page
+        if (session.getAttribute("username").equals("admin")) {
+            response.sendRedirect("AdminDashboard.jsp");
+        } else {
+            response.sendRedirect("UserDashboard.jsp");
+        }
+    }
+%>

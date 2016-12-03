@@ -1,10 +1,23 @@
 <%-- 
-    Document   : TemplateSite
-    Created on : Nov 11, 2016, 7:56:27 PM
+    Document   : UserDashboard
+    Created on : Dec 3, 2016, 2:43:54 PM
     Author     : Samintha
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (session == null || (session.getAttribute("username") == null || session.getAttribute("username").equals(""))) {
+        String s = "Please Login First! Goto <a href=\"login.jsp\" >Login</a>";
+        request.setAttribute("passedMessage", s);
+        RequestDispatcher rd = request.getRequestDispatcher("/TemplateSite.jsp");
+        rd.forward(request, response);
+    } else if (session != null && session.getAttribute("username").equals("admin")) {
+        String s = "You Don't Belong Here!";
+        request.setAttribute("passedMessage", s);
+        RequestDispatcher rd = request.getRequestDispatcher("/TemplateSite.jsp");
+        rd.forward(request, response);
+    } else {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,12 +45,12 @@
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
-                    <li><a class="grey-text text-darken-3" href="login.jsp">Login</a></li>
+                    <li><a class="grey-text text-darken-3" href="LoginHandle">Logout</a></li>
                     <li><a class="grey-text text-darken-3" href="requestAccount.html">Request an Account</a></li>
                 </ul>
                 <ul class="side-nav amber darken-1" id="mobile-demo">
                     <li><a href="index.html">LibraryMS</a></li>
-                    <li><a href="login.jsp">Login</a></li>
+                    <li><a href="LoginHandle">Logout</a></li>
                     <li><a href="requestAccount.html">Request an Account</a></li>
                 </ul>
             </div>
@@ -45,21 +58,7 @@
 
         <div class="container">
 
-            <div class="row">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-
-                <div class="col s12 center"><span class="flow-text amber darken-1" style="padding: 3px 3px 3px 3px;border-radius: 2px;box-shadow: 1px 1px 5px black; border-bottom: 5px; border-top: 5px" ><%String msg = (String) request.getAttribute("passedMessage");
-                out.print(msg);%></span></div>
-            </div>
+            <h4 class="white-text">Welcome ${sessionScope.username}</h4>
 
 
         </div>
@@ -89,3 +88,5 @@
         </style>
     </body>
 </html>
+<%    }
+%>
