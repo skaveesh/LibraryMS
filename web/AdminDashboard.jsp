@@ -35,7 +35,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/>
     </head>
-    <body  style="background: url(images/image_bg_index.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover;-o-background-size: cover; background-size: cover;">
+    <body>
 
 
         <!-- navigation bar-->
@@ -46,12 +46,10 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
                     <li><a class="grey-text text-darken-3" href="LoginHandle">Logout</a></li>
-                    <li><a class="grey-text text-darken-3" href="requestAccount.html">Request an Account</a></li>
                 </ul>
                 <ul class="side-nav amber darken-1" id="mobile-demo">
                     <li><a href="index.html">LibraryMS</a></li>
                     <li><a href="LoginHandle">Logout</a></li>
-                    <li><a href="requestAccount.html">Request an Account</a></li>
                 </ul>
             </div>
         </nav>
@@ -59,6 +57,50 @@
         <div class="container">
 
             <h4 class="white-text">Welcome ${sessionScope.username}</h4>
+
+            <!--beginning of the library app-->
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s2"><a id="tabdisplayid" href="#tabdisplay">Display</a></li>
+                        <li class="tab col s2"><a id="tabinsertid" href="#tabinsert">Insert</a></li>
+                        <li class="tab col s2"><a id="tabupdateid" href="#tabupdate">Update</a></li>
+                        <li class="tab col s2"><a id="tabdeleteid" href="#tabdelete">Delete</a></li>
+                        <li class="tab col s2"><a id="tabsearchid" href="#tabsearch">Search</a></li>
+                        <li class="tab col s2"><a id="tabmemberid" href="#tabmember">Members</a></li>
+                    </ul>
+                </div>
+
+                <div id="tabdisplay" class="col s12 amber lighten-4">
+                    <br />
+                    <p class="flow-text center-align">Available Books</p>
+                    <br />
+                    <jsp:include page="book/viewallbooks.jsp" />
+                </div>
+
+                <div id="tabinsert" class="col s12 amber lighten-4">
+                    Test 2 content
+                </div>
+
+                <div id="tabupdate" class="col s12 amber lighten-4">
+                    <br />
+                    <p class="flow-text center-align">Update Book Record</p>
+                    <br />
+                    <jsp:include page="book/updatebook.jsp" />
+                </div>
+
+                <div id="tabdelete" class="col s12 amber lighten-4">
+                    Test 4 content
+                </div>
+
+                <div id="tabsearch" class="col s12 amber lighten-4">
+                    Test 4 content
+                </div>
+
+                <div id="tabmember" class="col s12 amber lighten-4">
+                    Test 4 content
+                </div>
+            </div>
 
 
         </div>
@@ -73,6 +115,10 @@
             $(document).ready(function () {
                 $(".button-collapse").sideNav();
             });
+
+            $(function () {
+                $("#includedContent").load("book/updatebook.jsp");
+            });
         </script>
 
         <style>
@@ -85,8 +131,41 @@
                 border-bottom: 1px solid #FFF;
                 box-shadow: 0 1px 0 0 #FFF;
             }
+
         </style>
     </body>
+    <script type="text/javascript">
+        
+        $('#tabdisplayid').click(function(){ 
+            localStorage.setItem("tabvaluestore","tabdisplay");
+        });
+        
+        $('#tabinsertid').click(function(){ 
+            localStorage.setItem("tabvaluestore","tabinsert");
+        });
+        
+        $('#tabupdateid').click(function(){ 
+            localStorage.setItem("tabvaluestore","tabupdate");
+        });
+        
+        $('#tabdeleteid').click(function(){ 
+            localStorage.setItem("tabvaluestore","tabdelete");
+        });
+        
+        $('#tabsearchid').click(function(){ 
+            localStorage.setItem("tabvaluestore","tabsearch");
+        });
+        
+        $('#tabmemberid').click(function(){ 
+            localStorage.setItem("tabvaluestore","tabmember");
+        });
+        
+        //automatically redirect to the corresponding tab
+        $(document).ready(function () {
+            $('ul.tabs').tabs('select_tab', localStorage.getItem("tabvaluestore"));
+        });
+        
+    </script>
 </html>
 <%    }
 %>

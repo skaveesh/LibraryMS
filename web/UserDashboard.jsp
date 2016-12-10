@@ -46,12 +46,10 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
                     <li><a class="grey-text text-darken-3" href="LoginHandle">Logout</a></li>
-                    <li><a class="grey-text text-darken-3" href="requestAccount.html">Request an Account</a></li>
                 </ul>
                 <ul class="side-nav amber darken-1" id="mobile-demo">
                     <li><a href="index.html">LibraryMS</a></li>
                     <li><a href="LoginHandle">Logout</a></li>
-                    <li><a href="requestAccount.html">Request an Account</a></li>
                 </ul>
             </div>
         </nav>

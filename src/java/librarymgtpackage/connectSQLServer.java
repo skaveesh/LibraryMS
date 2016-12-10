@@ -19,7 +19,7 @@ import java.lang.Exception;
  *
  * @author Samintha
  */
-public class connectSQLServer {
+public class connectSQLServer implements java.io.Serializable{
 
     // Declare the JDBC objects.
     Connection con = null;
