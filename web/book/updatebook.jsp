@@ -11,9 +11,9 @@
         <script type="text/javascript">
             //ajax request sent by load button and fill the fields in the page
             var request;
-            function sendInfo() {
+            function sendInfoUpd() {
                 var v = document.bookidform.bookid.value;
-                var url = "book/retupdatebookjson.jsp?bid=" + v;
+                var url = "book/returnbookdetailsjson.jsp?bid=" + v;
 
                 if (window.XMLHttpRequest) {
                     request = new XMLHttpRequest();
@@ -22,16 +22,16 @@
                 }
 
                 try {
-                    request.onreadystatechange = getInfo;
+                    request.onreadystatechange = getInfoUpd;
                     request.open("GET", url, true);
                     request.send();
                 } catch (e) {
-                    alert("unable to connect to server");
+                    Materialize.toast('Unable to connect to server!', 4000);
                 }
             }
 
-            function getInfo() {
-                if (request.readyState == 4) {
+            function getInfoUpd() {
+                if (request.readyState === 4) {
                     var jsonObj = JSON.parse(request.responseText);
                     if (jsonObj.isbn !== undefined) {
                         document.getElementById('booktitle').value = jsonObj.title;
@@ -42,7 +42,7 @@
                         document.getElementById('bookedition').value = jsonObj.edition;
                         document.getElementById('bookcopies').value = jsonObj.available_copies;
                     } else {
-                        alert("Please enter a valid bookid!");
+                        Materialize.toast('Please enter a valid book id!', 4000);
                     }
                 }
             }
@@ -55,51 +55,51 @@
                     <div class="col s6">
                         Enter Book ID to Update:
                         <div class="input-field inline">
-                            <input id="bookid" name="bookid" type="text" pattern="[1-9]{1,2,3,4}" title="Please enter a number" required>
+                            <input id="bookid" name="bookid" type="number" min="1" title="Please enter a number" required>
                             <label for="bookid">Book ID</label>
                         </div>
                     </div>
-                    <input type="button" class="btn waves-effect waves-light col s1" onClick="sendInfo()" value="Load"/>
+                    <input type="button" class="btn waves-effect waves-light col s1" onClick="sendInfoUpd()" value="Load"/>
                 </div>
             </form>
-            <form class="col s12">
+            <form class="col s12" action="UpdateHandle" method="POST">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="booktitle" type="text" value=" " class="validate" required>
+                        <input id="booktitle" name="booktitle" type="text" value=" " class="validate" required>
                         <label for="booktitle">Book Title</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="bookauthor" type="text" value=" " class="validate" required>
+                        <input id="bookauthor" name="bookauthor" type="text" value=" " class="validate" required>
                         <label for="bookauthor">Author</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="bookpublisher" type="text" value=" " class="validate" required>
+                        <input id="bookpublisher" name="bookpublisher" type="text" value=" " class="validate" required>
                         <label for="bookpublisher">Publisher</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="bookcategory" type="text" value=" " class="validate" required>
+                        <input id="bookcategory" name="bookcategory" type="text" value=" " class="validate" required>
                         <label for="bookcategory">Category</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="bookisbn" type="text" value=" " class="validate" disabled required>
+                        <input id="bookisbn" name="bookisbn" type="text" value=" " class="validate" readOnly="true" required>
                         <label for="bookisbn">ISBN</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="bookedition" type="text" value=" " class="validate" required>
+                        <input id="bookedition" name="bookedition" type="text" value=" " class="validate" required>
                         <label for="bookedition">Edition</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="bookcopies" type="number" min="0" value="0" pattern="^[0-9]" class="validate" required>
+                        <input id="bookcopies" name="bookcopies" type="number" min="0" value="0" pattern="^[0-9]" class="validate" required>
                         <label for="bookcopies">Available Copies</label>
                     </div>
                     <button class="btn waves-effect waves-light col s2 offset-s3" type="submit" name="action">Update
-                        <i class="material-icons right">send</i>
+                        <i class="material-icons right">present_to_all</i>
                     </button>
                 </div>
             </form>

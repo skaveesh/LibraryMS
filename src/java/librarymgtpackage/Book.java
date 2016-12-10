@@ -22,14 +22,14 @@ import org.json.JSONObject;
 public class Book implements Serializable {
 
     Statement stmt;
-    String error;
+    String error, Status;
     List<Object> allData = new ArrayList<Object>();
 
     String title, author, publisher, category, isbn, edition;
-    int id,available_copies,i=0;
+    int id, available_copies, i = 0;
     Object obj = new Object();
 
-    public Book(){
+    public Book() {
         try {
             // Create a variable for the connection string.
             String connectionUrl = "jdbc:sqlserver://ASUS-X455LD\\MSSQL2014;databaseName=LibraryManagementSystem;";
@@ -49,7 +49,7 @@ public class Book implements Serializable {
         }
 
     }
-    
+
     public void setObj(Object obj) {
         this.obj = obj;
     }
@@ -59,43 +59,79 @@ public class Book implements Serializable {
     }
 
     public int getID() {
-        this.id = ((DataFields)obj).id;
+        this.id = ((DataFields) obj).id;
         return this.id;
     }
-    
+
     public String getTitle() {
-        this.title = ((DataFields)obj).title;
+        this.title = ((DataFields) obj).title;
         return this.title;
     }
 
     public String getAuthor() {
-        this.author = ((DataFields)obj).author;
+        this.author = ((DataFields) obj).author;
         return this.author;
     }
 
     public String getPublisher() {
-        this.publisher = ((DataFields)obj).publisher;
+        this.publisher = ((DataFields) obj).publisher;
         return this.publisher;
     }
 
     public String getCategory() {
-        this.category = ((DataFields)obj).category;
+        this.category = ((DataFields) obj).category;
         return this.category;
     }
 
     public String getIsbn() {
-        this.isbn = ((DataFields)obj).isbn;
+        this.isbn = ((DataFields) obj).isbn;
         return this.isbn;
     }
 
     public String getEdition() {
-        this.edition = ((DataFields)obj).edition;
+        this.edition = ((DataFields) obj).edition;
         return this.edition;
     }
 
     public int getAvailable_copies() {
-        this.available_copies = ((DataFields)obj).available_copies;
+        this.available_copies = ((DataFields) obj).available_copies;
         return this.available_copies;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public void setAvailable_copies(int available_copies) {
+        this.available_copies = available_copies;
     }
 
     public List getDB_Data() {
@@ -119,22 +155,14 @@ public class Book implements Serializable {
         }
         return allData;
     }
-    
-    public String getSingleRowDB_Data(int bookID){
+
+    public String getSingleRowDB_Data(int bookID) {
         JSONObject json = new JSONObject();
         try {
-            String query = "SELECT * FROM dbo.Books WHERE bookID='"+bookID+"'";
+            String query = "SELECT * FROM dbo.Books WHERE bookID='" + bookID + "'";
             ResultSet rs = stmt.executeQuery(query);
-            
+
             while (rs.next()) {
-                allData.add(rs.getInt(1));
-                allData.add(rs.getString(2));
-                allData.add(rs.getString(3));
-                allData.add(rs.getString(4));
-                allData.add(rs.getString(5));
-                allData.add(rs.getString(6));
-                allData.add(rs.getString(7));
-                allData.add(rs.getInt(8));
                 json.put("id", rs.getInt(1));
                 json.put("title", rs.getString(2));
                 json.put("author", rs.getString(3));
@@ -143,7 +171,6 @@ public class Book implements Serializable {
                 json.put("isbn", rs.getString(6));
                 json.put("edition", rs.getString(7));
                 json.put("available_copies", rs.getInt(8));
-                
             }
         } catch (SQLException ex) {
             error = "<b>Contact Administrator :</b><br/>" + ex;
@@ -156,12 +183,58 @@ public class Book implements Serializable {
         return (json.toString());
     }
 
+    public void UpdateBook() {
+        try {
+            String query = "UPDATE dbo.Books "
+                    + "SET title='" + title + "',author='" + author + "',publisher='" + publisher + "',category='" + category + "',edition='" + edition + "',available_copies='" + available_copies + "'"
+                    + "WHERE isbn='" + isbn + "'";
+            int s = stmt.executeUpdate(query);
+            Status = s + " Record updated successfully";
+        } catch (SQLException ex) {
+            Status = "Contact Administrator : Record updating error";
+            System.out.println("Query is not working" + ex);
+        } catch (Exception ex) {
+            Status = "Contact Administrator : Record updating error";
+            System.out.println("Query is not working" + ex);
+        }
+    }
+
+    public void InsertBook() {
+        try {
+            String query = "INSERT INTO dbo.Books(title,author,publisher,category,isbn,edition,available_copies) "
+                    + "VALUES('" + title + "','" + author + "','" + publisher + "','" + category + "','" + isbn + "','" + edition + "','" + available_copies + "')";
+            int s = stmt.executeUpdate(query);
+            Status = s + " Record inserted successfully";
+        } catch (SQLException ex) {
+            Status = "Contact Administrator : Record inserting error";
+            System.out.println("Query is not working" + ex);
+        } catch (Exception ex) {
+            Status = "Contact Administrator : Record inserting error";
+            System.out.println("Query is not working" + ex);
+        }
+    }
+
+    public void DeleteBook() {
+        try {
+            String query = "DELETE FROM dbo.Books WHERE bookID='" + id + "'";
+            int s = stmt.executeUpdate(query);
+            Status = s + " Record deleted successfully";
+        } catch (SQLException ex) {
+            Status = "Contact Administrator : Record deleting error";
+            System.out.println("Query is not working" + ex);
+        } catch (Exception ex) {
+            Status = "Contact Administrator : Record deleting error";
+            System.out.println("Query is not working" + ex);
+        }
+    }
+
+    //DataFields class
     public class DataFields {
 
         public String title, author, publisher, category, isbn, edition;
-        public int id,available_copies;
+        public int id, available_copies;
 
-        public DataFields(int id,String title, String author, String publisher, String category, String isbn, String edition, int available_copies) {
+        public DataFields(int id, String title, String author, String publisher, String category, String isbn, String edition, int available_copies) {
             this.id = id;
             this.title = title;
             this.author = author;
@@ -170,7 +243,7 @@ public class Book implements Serializable {
             this.isbn = isbn;
             this.edition = edition;
             this.available_copies = available_copies;
-            System.out.println(id+" "+title + " " + author + " " + publisher + " " + category + " " + isbn + " " + edition+" "+available_copies);
+            //System.out.println(id + " " + title + " " + author + " " + publisher + " " + category + " " + isbn + " " + edition + " " + available_copies);
         }
     }
 
