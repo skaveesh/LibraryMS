@@ -39,26 +39,57 @@
 
 
         <!-- navigation bar-->
-        <nav>
-            <div class="nav-wrapper amber darken-1">
-                <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
-                    <li><a class="grey-text text-darken-3" href="LoginHandle">Logout</a></li>
-                </ul>
-                <ul class="side-nav amber darken-1" id="mobile-demo">
-                    <li><a href="index.html">LibraryMS</a></li>
-                    <li><a href="LoginHandle">Logout</a></li>
-                </ul>
-            </div>
-        </nav>
+        <div class="navbar-fixed" style="z-index:999">
+            <nav>
+                <div class="nav-wrapper amber darken-1">
+                    <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li class="black-text">Welcome ${sessionScope.username}</li>
+                        <li><a class="waves-effect waves-light btn amber darken-4" href="UserDashboard.jsp">Refresh</a></li>
+                        <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
+                        <li><a class="grey-text text-darken-3" href="LoginHandle">Logout</a></li>
+                    </ul>
+                    <ul class="side-nav amber darken-1" id="mobile-demo">
+                        <li><a href="UserDashboard.jsp">Refresh</a></li>
+                        <li><a href="index.html">LibraryMS</a></li>
+                        <li><a href="LoginHandle">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
 
         <div class="container">
+<br />
+            <br />
+            <!--beginning of the library app-->
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs tabs-fixed-width">
+                        <li class="tab col s2"><a id="tabdisplayid" href="#tabdisplay">Display</a></li>
+                        <li class="tab col s2"><a id="tabsearchid" href="#tabsearch">Search</a></li>
+                        <li class="tab col s2"><a id="tabreservationid" href="#tabreservation">Book Reservation</a></li>
+                    </ul>
+                </div>
 
-            <h4 class="white-text">Welcome ${sessionScope.username}</h4>
+                <div id="tabdisplay" class="col s12 amber lighten-4">
+                    <br />
+                    <p class="flow-text center-align">Available Books</p>
+                    <br />
+                    <jsp:include page="book/viewallbooks.jsp" />
+                </div>
 
+                <div id="tabsearch" class="col s12 amber lighten-4">
+                    <br />
+                    <p class="flow-text center-align">Search Books</p>
+                    <br />
+                    <jsp:include page="book/searchbook.jsp" />
+                </div>
 
+                <div id="tabreservation" class="col s12 amber lighten-4">
+                    Test 4 content
+                </div>
+            </div>
         </div>
 
 
@@ -85,6 +116,52 @@
             }
         </style>
     </body>
+    <script type="text/javascript">
+
+        $('#tabdisplayid').click(function () {
+            localStorage.setItem("tabvaluestore", "tabdisplay");
+        });
+
+        $('#tabinsertid').click(function () {
+            localStorage.setItem("tabvaluestore", "tabinsert");
+        });
+
+        $('#tabupdateid').click(function () {
+            localStorage.setItem("tabvaluestore", "tabupdate");
+        });
+
+        $('#tabdeleteid').click(function () {
+            localStorage.setItem("tabvaluestore", "tabdelete");
+        });
+
+        $('#tabsearchid').click(function () {
+            localStorage.setItem("tabvaluestore", "tabsearch");
+        });
+
+        $('#tabmemberid').click(function () {
+            localStorage.setItem("tabvaluestore", "tabmember");
+        });
+
+        //automatically redirect to the corresponding tab
+        $(document).ready(function () {
+            $('ul.tabs').tabs('select_tab', localStorage.getItem("tabvaluestore"));
+        });
+
+        //initialize html select 
+        $(document).ready(function () {
+            $('select').material_select();
+        });
+
+        //this will display toasts when inserting, deleting, updating
+        <%
+            if (request.getAttribute("Status") != null) {
+        %>
+        Materialize.toast('<%=request.getAttribute("Status")%>', 4000);
+        <%
+            }
+        %>
+
+    </script>
 </html>
 <%    }
 %>

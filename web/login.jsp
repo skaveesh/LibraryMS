@@ -66,13 +66,13 @@ and open the template in the editor.
                     <form action="LoginHandle" method="POST">
                         <div class="row">
                             <div class="input-field">
-                                <input id="user_name" type="text" class="validate white-text" name="username">
+                                <input id="user_name" type="text" class="validate white-text" name="username" required>
                                 <label for="user_name" class="white-text">Userame</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <input id="user_password" type="password" class="validate" name="password">
+                                <input id="user_password" type="password" class="validate" name="password" required>
                                 <label for="duser_password" class="white-text">Password</label>
                             </div>
                         </div>

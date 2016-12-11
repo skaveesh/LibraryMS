@@ -9,8 +9,160 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/>
     </head>
-    <body>
-        <div>TODO write content</div>
+    <body  style="background: url(images/image_bg_index.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover;-o-background-size: cover; background-size: cover;">
+
+
+        <!-- navigation bar-->
+        <nav>
+            <div class="nav-wrapper amber darken-1">
+                <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
+                    <li><a class="grey-text text-darken-3" href="login.jsp">Login</a></li>
+                </ul>
+                <ul class="side-nav amber darken-1" id="mobile-demo">
+                    <li><a href="index.html">LibraryMS</a></li>
+                    <li><a href="login.jsp">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <div class="row">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <div class="col l8 offset-l2 m8 offset-m2 s12 amber darken-1" style="padding: 30px 30px 30px 30px;border-radius: 5px;box-shadow: 1px 1px 20px black"> 
+                    <form action="RequestAccountHandle" method="POST" onsubmit="return pass_equals()">
+                        <div class="row">
+                            <p class="flow-text center-align">Fill the Form Below to Request an Account</p>
+                            <br />
+                            <div class="input-field">
+                                <input id="f_name" type="text" class="validate white-text" name="fname" required>
+                                <label for="f_name" class="white-text">First Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="l_name" type="text" class="validate white-text" name="lname" required> 
+                                <label for="l_name" class="white-text">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="address" type="text" class="validate white-text" name="address" required>
+                                <label for="address" class="white-text">Address</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="contact" type="text" class="validate white-text" name="contact" required>
+                                <label for="contact" class="white-text">Contact</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="email" type="text" class="validate white-text" name="email" required>
+                                <label for="email" class="white-text">E-mail</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="user_name" type="text" class="validate white-text" name="username" required>
+                                <label for="user_name" class="white-text">Userame</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="password" type="password" class="validate" name="password" required>
+                                <label for="password" class="white-text">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <input id="confirm_password" type="password" class="validate" name="confirm_password" required>
+                                <label for="confirm_password" class="white-text">Confirm Password</label>
+                            </div>
+                            <span id='message'></span>
+                        </div>
+                        <div class="row center">
+                            <button  class="waves-effect waves-light white grey-text text-darken-1 btn center-align" type="submit">Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="materialize/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+
+        <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".button-collapse").sideNav();
+                        });
+
+                        //confirm password validate
+                        $('#confirm_password').on('keyup', function () {
+                            if ($(this).val() === $('#password').val()) {
+                                $('#message').html('Passwords are matching').css('color', 'green');
+                            } else
+                                $('#message').html('Passwords are not matching').css('color', 'red');
+                        });
+
+                        function pass_equals() {
+                            if (document.getElementById('password').value === document.getElementById('confirm_password').value) {
+                                return true;
+                            } else{
+                                return false;
+                            }
+                        }
+        </script>
+
+        <style>
+            /* label focus color */ 
+            .input-field input[type=text]:focus + label {
+                color: #FFF;
+            }
+
+            /* label underline focus color */
+            .input-field input[type=text]:focus {
+                border-bottom: 1px solid #FFF;
+                box-shadow: 0 1px 0 0 #FFF;
+            }
+
+            /* label focus color */
+            .input-field input[type=password]:focus + label {
+                color: #FFF;
+            }
+            /* label underline focus color */
+            .input-field input[type=password]:focus {
+                border-bottom: 1px solid #FFF;
+                box-shadow: 0 1px 0 0 #FFF;
+            }
+
+
+            password:focus {
+                border-bottom: 1px solid orange;
+                -webkit-box-shadow: 0 1px 0 0 orange;
+                -moz-box-shadow: 0 1px 0 0 orange;
+                box-shadow: 0 1px 0 0 orange;
+            }
+        </style>
     </body>
 </html>

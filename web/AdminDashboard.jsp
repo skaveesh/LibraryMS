@@ -39,9 +39,8 @@
 
 
         <!-- navigation bar-->
-
-        <nav>
-            <div class="navbar-fixed">
+        <div class="navbar-fixed" style="z-index:999">
+            <nav>
                 <div class="nav-wrapper amber darken-1">
                     <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -51,15 +50,14 @@
                         <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
                         <li><a class="grey-text text-darken-3" href="LoginHandle">Logout</a></li>
                     </ul>
-                    <ul class="side-nav amber darken-1" id="mobile-demo">
+                    <ul class="side-nav amber darken-1"  id="mobile-demo">
                         <li><a href="AdminDashboard.jsp">Refresh</a></li>
                         <li><a href="index.html">LibraryMS</a></li>
                         <li><a href="LoginHandle">Logout</a></li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-
+            </nav>
+        </div>
 
         <div class="container">
             <br />
@@ -67,7 +65,7 @@
             <!--beginning of the library app-->
             <div class="row">
                 <div class="col s12">
-                    <ul class="tabs">
+                    <ul class="tabs tabs-fixed-width">
                         <li class="tab col s2"><a id="tabdisplayid" href="#tabdisplay">Display</a></li>
                         <li class="tab col s2"><a id="tabinsertid" href="#tabinsert">Insert</a></li>
                         <li class="tab col s2"><a id="tabupdateid" href="#tabupdate">Update</a></li>
@@ -106,7 +104,10 @@
                 </div>
 
                 <div id="tabsearch" class="col s12 amber lighten-4">
-                    Test 4 content
+                    <br />
+                    <p class="flow-text center-align">Search Books</p>
+                    <br />
+                    <jsp:include page="book/searchbook.jsp" />
                 </div>
 
                 <div id="tabmember" class="col s12 amber lighten-4">
@@ -170,6 +171,11 @@
         //automatically redirect to the corresponding tab
         $(document).ready(function () {
             $('ul.tabs').tabs('select_tab', localStorage.getItem("tabvaluestore"));
+        });
+
+        //initialize html select 
+        $(document).ready(function () {
+            $('select').material_select();
         });
 
         //this will display toasts when inserting, deleting, updating

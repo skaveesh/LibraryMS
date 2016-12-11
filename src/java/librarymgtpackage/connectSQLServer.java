@@ -53,8 +53,8 @@ public class connectSQLServer implements java.io.Serializable{
     }
 
     public boolean loginUser(String enteredUsername, String enteredPassword) {
-        String usernameFromDB = null;
-        String userpassFromDB = null;
+        String usernameFromDB = "";
+        String userpassFromDB = "";
         try {
             String SQL = "SELECT username,password FROM dbo.Users WHERE username = '"+enteredUsername+"'";
             ResultSet rs = null;

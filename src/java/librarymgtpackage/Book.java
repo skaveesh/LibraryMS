@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -22,7 +23,7 @@ import org.json.JSONObject;
 public class Book implements Serializable {
 
     Statement stmt;
-    String error, Status;
+    String error, searchCategory, searchKeyword, Status;
     List<Object> allData = new ArrayList<Object>();
 
     String title, author, publisher, category, isbn, edition;
@@ -134,6 +135,14 @@ public class Book implements Serializable {
         this.available_copies = available_copies;
     }
 
+    public void setSearchCategory(String searchCategory) {
+        this.searchCategory = searchCategory;
+    }
+
+    public void setSearchKeyword(String searchKeyword) {
+        this.searchKeyword = searchKeyword;
+    }
+    
     public List getDB_Data() {
         try {
             String query = "SELECT * FROM dbo.Books";
@@ -226,6 +235,41 @@ public class Book implements Serializable {
             Status = "Contact Administrator : Record deleting error";
             System.out.println("Query is not working" + ex);
         }
+    }
+    
+    public String getSearch_Data() {
+        JSONObject json = new JSONObject();
+        JSONArray json_arr = new JSONArray();
+        try {
+            String query = "SELECT * FROM dbo.Books WHERE "+searchCategory+" LIKE '%" + searchKeyword + "%'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            System.out.println("query "+query);
+            while (rs.next()) {
+                JSONObject sub_json = new JSONObject();
+                sub_json.put("id", rs.getInt(1));
+                sub_json.put("title", rs.getString(2));
+                sub_json.put("author", rs.getString(3));
+                sub_json.put("publisher", rs.getString(4));
+                sub_json.put("category", rs.getString(5));
+                sub_json.put("isbn", rs.getString(6));
+                sub_json.put("edition", rs.getString(7));
+                sub_json.put("available_copies", rs.getInt(8));
+                json_arr.put(sub_json);
+                
+                System.out.println("json 1 data ---> "+rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getString(6)+" "+rs.getString(7)+" "+rs.getInt(8));
+            }
+            
+            //json.put("Search", json_arr);
+        } catch (SQLException ex) {
+            error = "<b>Contact Administrator :</b><br/>" + ex;
+            System.out.println("Query is not working" + ex);
+
+        } catch (Exception ex) {
+            error = "<b>Contact Administrator :</b><br/>" + ex;
+            System.out.println("Query is not working" + ex);
+        }
+        return (json_arr.toString());
     }
 
     //DataFields class
