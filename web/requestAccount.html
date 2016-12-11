@@ -23,21 +23,22 @@ and open the template in the editor.
 
 
         <!-- navigation bar-->
-        <nav>
-            <div class="nav-wrapper amber darken-1">
-                <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
-                    <li><a class="grey-text text-darken-3" href="login.jsp">Login</a></li>
-                </ul>
-                <ul class="side-nav amber darken-1" id="mobile-demo">
-                    <li><a href="index.html">LibraryMS</a></li>
-                    <li><a href="login.jsp">Login</a></li>
-                </ul>
-            </div>
-        </nav>
-
+        <div class="navbar-fixed" style="z-index:999">
+            <nav>
+                <div class="nav-wrapper amber darken-1">
+                    <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
+                        <li><a class="grey-text text-darken-3" href="login.jsp">Login</a></li>
+                    </ul>
+                    <ul class="side-nav amber darken-1" id="mobile-demo">
+                        <li><a href="index.html">LibraryMS</a></li>
+                        <li><a href="login.jsp">Login</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
         <div class="container">
 
             <div class="row">
@@ -128,7 +129,7 @@ and open the template in the editor.
                         function pass_equals() {
                             if (document.getElementById('password').value === document.getElementById('confirm_password').value) {
                                 return true;
-                            } else{
+                            } else {
                                 return false;
                             }
                         }

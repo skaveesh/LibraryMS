@@ -14,7 +14,7 @@
             function sendInfoUpd() {
                 var v_k = document.booksearchform.booksearchkeyword.value;
                 var v_s = document.booksearchform.searchselect.value;
-                var url = "book/returnsearchdetailsjson.jsp?booksearchkeyword=" + v_k + "&searchselect=" + v_s;
+                var urlSrch = "book/returnsearchdetailsjson.jsp?booksearchkeyword=" + v_k + "&searchselect=" + v_s;
 
                 if (window.XMLHttpRequest) {
                     requestSrch = new XMLHttpRequest();
@@ -24,7 +24,7 @@
 
                 try {
                     requestSrch.onreadystatechange = getInfoUpdSrch;
-                    requestSrch.open("GET", url, true);
+                    requestSrch.open("GET", urlSrch, true);
                     requestSrch.send();
                 } catch (e) {
                     Materialize.toast('Unable to connect to server!', 4000);
@@ -33,8 +33,6 @@
 
             function getInfoUpdSrch() {
                 if (requestSrch.readyState === 4) {
-                    //alert(requestSrch.responseText);
-                    //var jsonObjSrch = requestSrch.responseText;
                     var jsonObjSrch = eval('(' + requestSrch.responseText + ')');
 
                     if ($.trim(jsonObjSrch)) {

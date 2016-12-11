@@ -111,7 +111,10 @@
                 </div>
 
                 <div id="tabmember" class="col s12 amber lighten-4">
-                    Test 4 content
+                    <br />
+                    <p class="flow-text center-align">Search Books</p>
+                    <br />
+                    <jsp:include page="book/viewallusers.jsp" />
                 </div>
             </div>
 

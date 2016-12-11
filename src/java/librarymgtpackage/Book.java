@@ -142,7 +142,7 @@ public class Book implements Serializable {
     public void setSearchKeyword(String searchKeyword) {
         this.searchKeyword = searchKeyword;
     }
-    
+
     public List getDB_Data() {
         try {
             String query = "SELECT * FROM dbo.Books";
@@ -169,6 +169,33 @@ public class Book implements Serializable {
         JSONObject json = new JSONObject();
         try {
             String query = "SELECT * FROM dbo.Books WHERE bookID='" + bookID + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                json.put("id", rs.getInt(1));
+                json.put("title", rs.getString(2));
+                json.put("author", rs.getString(3));
+                json.put("publisher", rs.getString(4));
+                json.put("category", rs.getString(5));
+                json.put("isbn", rs.getString(6));
+                json.put("edition", rs.getString(7));
+                json.put("available_copies", rs.getInt(8));
+            }
+        } catch (SQLException ex) {
+            error = "<b>Contact Administrator :</b><br/>" + ex;
+            System.out.println("Query is not working" + ex);
+
+        } catch (Exception ex) {
+            error = "<b>Contact Administrator :</b><br/>" + ex;
+            System.out.println("Query is not working" + ex);
+        }
+        return (json.toString());
+    }
+
+    public String getSingleReserveRowDB_Data(int bookID) {
+        JSONObject json = new JSONObject();
+        try {
+            String query = "SELECT * FROM dbo.Books WHERE bookID='" + bookID + "' AND available_copies=0";
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
@@ -236,15 +263,14 @@ public class Book implements Serializable {
             System.out.println("Query is not working" + ex);
         }
     }
-    
+
     public String getSearch_Data() {
-        JSONObject json = new JSONObject();
         JSONArray json_arr = new JSONArray();
         try {
-            String query = "SELECT * FROM dbo.Books WHERE "+searchCategory+" LIKE '%" + searchKeyword + "%'";
+            String query = "SELECT * FROM dbo.Books WHERE " + searchCategory + " LIKE '%" + searchKeyword + "%'";
             ResultSet rs = stmt.executeQuery(query);
 
-            System.out.println("query "+query);
+            System.out.println("query " + query);
             while (rs.next()) {
                 JSONObject sub_json = new JSONObject();
                 sub_json.put("id", rs.getInt(1));
@@ -256,11 +282,7 @@ public class Book implements Serializable {
                 sub_json.put("edition", rs.getString(7));
                 sub_json.put("available_copies", rs.getInt(8));
                 json_arr.put(sub_json);
-                
-                System.out.println("json 1 data ---> "+rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getString(6)+" "+rs.getString(7)+" "+rs.getInt(8));
             }
-            
-            //json.put("Search", json_arr);
         } catch (SQLException ex) {
             error = "<b>Contact Administrator :</b><br/>" + ex;
             System.out.println("Query is not working" + ex);
@@ -287,7 +309,6 @@ public class Book implements Serializable {
             this.isbn = isbn;
             this.edition = edition;
             this.available_copies = available_copies;
-            //System.out.println(id + " " + title + " " + author + " " + publisher + " " + category + " " + isbn + " " + edition + " " + available_copies);
         }
     }
 

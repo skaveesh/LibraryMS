@@ -27,23 +27,25 @@ and open the template in the editor.
         <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 
         <!-- navigation bar-->
-        <nav>
-            <div class="nav-wrapper amber darken-1">
-                <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
-                    <li><a class="grey-text text-darken-3" href="login.jsp">Login</a></li>
-                    <li><a class="grey-text text-darken-3" href="requestAccount.html">Request an Account</a></li>
-                </ul>
-                <ul class="side-nav amber darken-1" id="mobile-demo">
-                    <li><a href="index.html">LibraryMS</a></li>
-                    <li><a href="login.jsp">Login</a></li>
-                    <li><a href="requestAccount.html">Request an Account</a></li>
-                </ul>
-            </div>
-        </nav>
-
+        <div class="navbar-fixed" style="z-index:999">
+            <nav>
+                <div class="nav-wrapper amber darken-1">
+                    <a href="#!" class="brand-logo grey-text text-darken-4" style="font-weight: 100">&nbsp;Library Management System</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="grey-text text-darken-3" href="index.html">LibraryMS</a></li>
+                        <li><a class="grey-text text-darken-3" href="login.jsp">Login</a></li>
+                        <li><a class="grey-text text-darken-3" href="requestAccount.html">Request an Account</a></li>
+                    </ul>
+                    <ul class="side-nav amber darken-1" id="mobile-demo">
+                        <li><a href="index.html">LibraryMS</a></li>
+                        <li><a href="login.jsp">Login</a></li>
+                        <li><a href="requestAccount.html">Request an Account</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        
         <div class="container">
 
             <div class="row">
@@ -57,14 +59,14 @@ and open the template in the editor.
                 <br>
                 <br>
                 <br>
-<!--                <div class="col s8 offset-s2">
-                    <ul class="collapsible popout" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">settings_applications</i>SQL Server Configuration</div>
-                            <div class="collapsible-body white"><p>You need to configure and initialize database connection before login for the first time.</p></div>
-                        </li>
-                    </ul>
-                </div>-->
+                <!--                <div class="col s8 offset-s2">
+                                    <ul class="collapsible popout" data-collapsible="accordion">
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">settings_applications</i>SQL Server Configuration</div>
+                                            <div class="collapsible-body white"><p>You need to configure and initialize database connection before login for the first time.</p></div>
+                                        </li>
+                                    </ul>
+                                </div>-->
             </div>
 
         </div>

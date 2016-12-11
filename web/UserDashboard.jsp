@@ -35,8 +35,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/>
     </head>
-    <body  style="background: url(images/image_bg_index.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover;-o-background-size: cover; background-size: cover;">
-
+    <body>
 
         <!-- navigation bar-->
         <div class="navbar-fixed" style="z-index:999">
@@ -60,7 +59,7 @@
         </div>
 
         <div class="container">
-<br />
+            <br />
             <br />
             <!--beginning of the library app-->
             <div class="row">
@@ -87,7 +86,15 @@
                 </div>
 
                 <div id="tabreservation" class="col s12 amber lighten-4">
-                    Test 4 content
+                    <br />
+                    <p class="flow-text center-align">Books Reservation</p>
+                    <p>This function can use to reserve book which are currently not
+                    available at our library. So you can reserve that book and 
+                    get e-mail notification whenever the book is available. E-mail will be 
+                    sent to the e-mail that you provided at the registration. Note that you
+                    can only reserve one book at a time.</p>
+                    <br />
+                    <jsp:include page="book/reservebook.jsp" />
                 </div>
             </div>
         </div>
@@ -121,25 +128,13 @@
         $('#tabdisplayid').click(function () {
             localStorage.setItem("tabvaluestore", "tabdisplay");
         });
-
-        $('#tabinsertid').click(function () {
-            localStorage.setItem("tabvaluestore", "tabinsert");
-        });
-
-        $('#tabupdateid').click(function () {
-            localStorage.setItem("tabvaluestore", "tabupdate");
-        });
-
-        $('#tabdeleteid').click(function () {
-            localStorage.setItem("tabvaluestore", "tabdelete");
-        });
-
+        
         $('#tabsearchid').click(function () {
             localStorage.setItem("tabvaluestore", "tabsearch");
         });
 
-        $('#tabmemberid').click(function () {
-            localStorage.setItem("tabvaluestore", "tabmember");
+        $('#tabreservationid').click(function () {
+            localStorage.setItem("tabvaluestore", "tabreservation");
         });
 
         //automatically redirect to the corresponding tab
